@@ -54,8 +54,12 @@ const Index: NextPage<Props> = ({ countries }) => {
 
   return (
     <Layout>
-      <Flex justifyContent="space-between" alignItems="center">
-        <Flex alignItems="center" rounded="lg" boxShadow="base">
+      <Flex
+        justifyContent="space-between"
+        alignItems={{ md: "center", base: "" }}
+        direction={{ md: "row", base: "column" }}
+      >
+        <Flex alignItems="center" rounded="lg" boxShadow="base" mb={{md: 0, base: 5}}>
           <Box mx={4}>
             <i className="fas fa-search"></i>
           </Box>

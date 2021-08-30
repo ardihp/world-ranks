@@ -5,7 +5,6 @@ import Header from "./Header";
 import ToggleMode from "./ToggleMode";
 
 const Layout: NextPage = ({ children }) => {
-
   return (
     <Flex direction="column" maxW="8xl" p={0} margin="0 auto">
       <Header>

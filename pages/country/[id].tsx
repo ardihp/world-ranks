@@ -29,26 +29,38 @@ const Index: NextPage = ({ country }: any) => {
 
   return (
     <Layout>
-      <Flex alignItems="flex-start" justifyContent="center">
-        <Flex direction="column">
+      <Flex
+        alignItems="flex-start"
+        justifyContent="center"
+        direction={{ md: "row", base: "column" }}
+      >
+        <Flex direction="column" width={{ md: "inherit", base: "100%" }}>
           <Flex mb={5}>
             <Link href="/">
               <Button size="sm">Back</Button>
             </Link>
           </Flex>
-          <Flex boxShadow="base" direction="column" p={7} rounded="lg" mr={10}>
-            <Image
-              src={country.flag}
-              width="300px"
-              rounded="md"
-              boxShadow="base"
-            />
+          <Flex
+            boxShadow="base"
+            direction="column"
+            p={7}
+            rounded="lg"
+            mr={{ md: 10, base: 0 }}
+          >
+            <Flex justifyContent="center">
+              <Image
+                src={country.flag}
+                width="300px"
+                rounded="md"
+                boxShadow="base"
+              />
+            </Flex>
             <Flex alignItems="center" my={7} direction="column">
               <Text
                 fontFamily="Spartan"
                 fontWeight="700"
                 fontSize="24"
-                width="300px"
+                width={{ md: "300px", base: "100%" }}
                 textAlign="center"
               >
                 {country.name}
@@ -89,7 +101,8 @@ const Index: NextPage = ({ country }: any) => {
           boxShadow="base"
           direction="column"
           rounded="lg"
-          width="750px"
+          mt={{ md: 0, base: 7 }}
+          width={{ md: "750px", base: "100%" }}
           fontFamily="Poppins"
         >
           <Text
@@ -164,6 +177,7 @@ const Index: NextPage = ({ country }: any) => {
                   direction="column"
                   justifyContent="center"
                   alignItems="center"
+                  key={border.alpha3Code}
                 >
                   <Flex
                     overflow="hidden"
@@ -218,4 +232,3 @@ export const getStaticProps = async ({ params }: any) => {
     }
   };
 };
-  
