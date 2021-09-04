@@ -10,7 +10,7 @@ const Header: NextPage = ({ children }) => {
       justifyContent="space-between"
       alignItems="center"
       py={7}
-      px={10}
+      px={{md: 10, base: 6}}
       boxShadow="sm"
       className={colorMode === "light" ? style.header : style.headerDark}
     >

@@ -18,7 +18,7 @@ const Layout: NextPage = ({ children }) => {
         </Flex>
         <ToggleMode />
       </Header>
-      <Box minHeight="50px" px={10} py={7}>
+      <Box minHeight="50px" px={{ md: 10, base: 6 }} py={7}>
         {children}
       </Box>
       <Flex justifyContent="center" px={5} pb={7} minHeight="50px" mt="auto">
