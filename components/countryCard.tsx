@@ -27,7 +27,7 @@ const dataCard: NextPage<Props> = ({ data }: any) => {
           direction="column"
           rounded="md"
         >
-          <Image src={data.flag} rounded="md" />
+          <Image src={data.flag} rounded="md" alt="flag-image" />
         </Flex>
         <Flex mt={5} direction="column">
           <Text

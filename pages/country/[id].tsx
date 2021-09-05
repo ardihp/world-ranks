@@ -1,22 +1,23 @@
-import { NextPage } from "next";
+import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Flex, Button, SimpleGrid, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import { Country, Currency, Language } from "../../types/interface";
 
 import Layout from "../../components/Layout";
 
-const getCountry = async (id: string) => {
+const getCountry = async (id: string | string[] | undefined) => {
   const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
   const country = await res.json();
   return country;
 };
 
 const Index: NextPage = ({ country }: any) => {
-  const [borders, setBorders] = useState([]);
+  const [borders, setBorders] = useState<string[]>([]);
 
   const getBorder = async () => {
-    const countryBorder: any = await Promise.all(
+    const countryBorder: string[] = await Promise.all(
       country.borders.map((name: string) => getCountry(name))
     );
 
@@ -41,7 +42,9 @@ const Index: NextPage = ({ country }: any) => {
           <Flex direction="column" width={{ md: "inherit", base: "100%" }}>
             <Flex mb={5}>
               <Link href="/">
-                <Button size="sm">Back</Button>
+                <Button size="sm" aria-label="back to home">
+                  Back
+                </Button>
               </Link>
             </Flex>
             <Flex
@@ -58,6 +61,7 @@ const Index: NextPage = ({ country }: any) => {
                   height="100%"
                   rounded="md"
                   boxShadow="base"
+                  alt="flag-image"
                 />
               </Flex>
               <Flex alignItems="center" my={7} direction="column">
@@ -137,7 +141,9 @@ const Index: NextPage = ({ country }: any) => {
               >
                 <Text fontWeight="600">Languages</Text>
                 <Text textAlign="right">
-                  {country.languages.map(({ name }: any) => name).join(", ")}
+                  {country.languages
+                    .map(({ name }: Language) => name)
+                    .join(", ")}
                 </Text>
               </Flex>
               <Flex
@@ -148,7 +154,9 @@ const Index: NextPage = ({ country }: any) => {
               >
                 <Text fontWeight="600">Currencies</Text>
                 <Text textAlign="right">
-                  {country.currencies.map(({ name }: any) => name).join(", ")}
+                  {country.currencies
+                    .map(({ name }: Currency) => name)
+                    .join(", ")}
                 </Text>
               </Flex>
               <Flex
@@ -167,7 +175,9 @@ const Index: NextPage = ({ country }: any) => {
                 px={7}
               >
                 <Text fontWeight="600">Gini</Text>
-                <Text textAlign="right">{country.gini ? country.gini : "0"} %</Text>
+                <Text textAlign="right">
+                  {country.gini ? country.gini : "0"} %
+                </Text>
               </Flex>
             </SimpleGrid>
             <Text mx={7} fontWeight="700" fontSize="18" fontFamily="Spartan">
@@ -192,7 +202,12 @@ const Index: NextPage = ({ country }: any) => {
                       rounded="md"
                       boxShadow="base"
                     >
-                      <Image src={border.flag} rounder="md" boxShadow="base" />
+                      <Image
+                        src={border.flag}
+                        rounder="md"
+                        boxShadow="base"
+                        alt="flag-image"
+                      />
                     </Flex>
                     <Text
                       fontFamily="Poppins"
@@ -215,11 +230,11 @@ const Index: NextPage = ({ country }: any) => {
 
 export default Index;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://restcountries.eu/rest/v2/all");
   const countries = await res.json();
 
-  const paths = countries.map((country: any) => ({
+  const paths = countries.map((country: Country) => ({
     params: { id: country.alpha3Code }
   }));
 
@@ -229,8 +244,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }: any) => {
-  const country = await getCountry(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const country = await getCountry(params && params.id);
 
   return {
     props: {

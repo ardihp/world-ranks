@@ -13,6 +13,7 @@ const ToggleMode: NextPage = () => {
         p={0}
         background="none"
         boxShadow="base"
+        aria-label="Change Theme"
       >
         {colorMode === "light" ? (
           <i className="fas fa-moon"></i>

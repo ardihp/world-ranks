@@ -1,13 +1,14 @@
-import { Button, Flex, Box, Text, Input } from "@chakra-ui/react";
-import { NextPage, GetStaticProps } from "next";
+import { Button, Flex, Box, Input } from "@chakra-ui/react";
+import { GetStaticProps, NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
+import { Country } from "../types/interface";
 
 import Content from "../components/Content";
 import Layout from "../components/Layout";
 
 interface Props {
-  countries: any;
+  countries: Country[];
   query: string;
 }
 
@@ -88,11 +89,16 @@ const Index: NextPage<Props> = ({ countries }) => {
               size="sm"
               onClick={() => setValueAndDirection("population")}
               mr={3}
+              aria-label="Sort by Population"
             >
               Sort By Population
               {value === "population" && SortArrow(direction)}
             </Button>
-            <Button size="sm" onClick={() => setValueAndDirection("name")}>
+            <Button
+              size="sm"
+              onClick={() => setValueAndDirection("name")}
+              aria-label="Sort by Name"
+            >
               Sort By Name
               {value === "name" && SortArrow(direction)}
             </Button>
@@ -104,7 +110,7 @@ const Index: NextPage<Props> = ({ countries }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://restcountries.eu/rest/v2/all");
   const countries = await res.json();
 
