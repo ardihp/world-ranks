@@ -2,7 +2,7 @@ import { Box, Flex, Input, Text, useColorMode } from "@chakra-ui/react";
 import { NextPage } from "next";
 import style from "../styles/Header.module.css";
 
-const Header: NextPage = ({ children }) => {
+const Header: NextPage = ({ children }: any) => {
   const { colorMode } = useColorMode();
 
   return (

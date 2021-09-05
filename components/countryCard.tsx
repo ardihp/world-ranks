@@ -8,7 +8,7 @@ interface Props {
   data: any;
 }
 
-const dataCard: NextPage<Props> = ({ data }) => {
+const dataCard: NextPage<Props> = ({ data }: any) => {
   const { colorMode } = useColorMode();
 
   return (
