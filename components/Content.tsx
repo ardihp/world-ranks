@@ -1,7 +1,8 @@
 import { Flex, SimpleGrid } from "@chakra-ui/react";
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 
-import CountryCard from "./countryCard";
+const CountryCard = dynamic(() => import("./countryCard"));
 
 interface Props {
   data: any;

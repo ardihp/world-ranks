@@ -1,11 +1,12 @@
 import { Button, Flex, Box, Input } from "@chakra-ui/react";
 import { GetStaticProps, NextPage } from "next";
-import { useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { Country } from "../types/interface";
+import dynamic from "next/dynamic";
 
-import Content from "../components/Content";
-import Layout from "../components/Layout";
+const Content = dynamic(() => import("../components/Content"));
+const Layout = dynamic(() => import("../components/Layout"));
 
 interface Props {
   countries: Country[];
@@ -80,7 +81,9 @@ const Index: NextPage<Props> = ({ countries }) => {
               placeholder="Filter by Name"
               fontFamily="Poppins"
               fontSize="14"
-              onChange={e => setQuery(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setQuery(e.target.value)
+              }
               _focus={{}}
             />
           </Flex>
